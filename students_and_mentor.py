@@ -120,5 +120,5 @@ lecturer1.courses_attached += ['Python']
 lecturer2 = Lecturer('Jane', 'Doe')
 lecturer2.courses_attached += ['Python']
 
-# reviewer1 = Reviewer('Some', 'Buddy')
-# reviewer1
+reviewer1 = Reviewer('Some', 'Buddy')
+reviewer1

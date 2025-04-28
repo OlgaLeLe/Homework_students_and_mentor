@@ -118,7 +118,33 @@ lecturer1 = Lecturer('John', 'Doe')
 lecturer1.courses_attached += ['Python']
 
 lecturer2 = Lecturer('Jane', 'Doe')
-lecturer2.courses_attached += ['Python']
+lecturer2.courses_attached += ['Git']
 
-reviewer1 = Reviewer('Some', 'Buddy')
-reviewer1
+reviewer1 = Reviewer('Alice', 'Johnson')
+reviewer1.courses_attached += ['Python']
+
+reviewer2 = Reviewer('Bob', 'Brown')
+reviewer2.courses_attached += ['Git']
+
+# Пример оценки лектора студентом
+student1.rate_lecturer(lecturer1, 'Python', 9)
+student1.rate_lecturer(lecturer2, 'Git', 8)
+
+student2.rate_lecturer(lecturer1, 'Python', 10)
+student2.rate_lecturer(lecturer2, 'Git', 7)
+
+# Пример оценки домашнего задания студентом рецензентом
+reviewer1.rate_hw(student1, 'Python', 9)
+reviewer1.rate_hw(student2, 'Python', 8)
+
+# Вывод информации о студентах, лекторах и рецензентах
+print(student1)
+print(student2)
+print(lecturer1)
+print(lecturer2)
+print(reviewer1)
+print(reviewer2)
+
+# Пример использования функций для подсчета средних оценок
+print(f"Средняя оценка студентов по курсу Python: {average_student_grade([student1, student2], 'Python'):.1f}")
+print(f"Средняя оценка лекторов по курсу Python: {average_lecturer_grade([lecturer1, lecturer2], 'Python'):.1f}")

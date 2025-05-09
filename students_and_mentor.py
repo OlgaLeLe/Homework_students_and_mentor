@@ -25,16 +25,17 @@ class Student:
 
     def __str__(self):
         avg_grade = self.average_grade()
-        return (f"Имя: {self.name}\n"
-                f"Фамилия: {self.surname}\n"
-                f"Средняя оценка за домашние задания: {avg_grade:.1f}\n"
-                f"Курсы в процессе изучения: {', '.join(self.courses_in_progress)}\n"
-                f"Завершенные курсы: {', '.join(self.finished_courses)}")
+        return (f"\tИмя: {self.name}\n"
+                f"\tФамилия: {self.surname}\n"
+                f"\tСредняя оценка за домашние задания: {avg_grade:.1f}\n"
+                f"\tКурсы в процессе изучения: {', '.join(self.courses_in_progress)}\n"
+                f"\tЗавершенные курсы: {', '.join(self.finished_courses)}\n")
 
     def __lt__(self, other):
         if isinstance(other, Student):
             return self.average_grade() < other.average_grade()
         return NotImplemented
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -66,9 +67,9 @@ class Lecturer(Mentor):
 
     def __str__(self):
         avg_grade = self.average_grade()
-        return (f"Имя: {self.name}\n"
-                f"Фамилия: {self.surname}\n"
-                f"Средняя оценка за лекции: {avg_grade:.1f}")
+        return (f"\tИмя: {self.name}\n"
+                f"\tФамилия: {self.surname}\n"
+                f"\tСредняя оценка за лекции: {avg_grade:.1f}\n")
 
     def __lt__(self, other):
         if isinstance(other, Lecturer):
@@ -81,7 +82,7 @@ class Reviewer(Mentor):
         super().__init__(name, surname)
 
     def __str__(self):
-        return f"Имя: {self.name}\nФамилия: {self.surname}"
+        return f"\tИмя: {self.name}\n\tФамилия: {self.surname}\n"
 
 
 # Функции для подсчета средних оценок
@@ -106,45 +107,59 @@ def average_lecturer_grade(lecturers, course):
 
 
 # Создание экземпляров
-student1 = Student('Ruoy', 'Eman', 'male')
-student1.courses_in_progress += ['Python', 'Git']
-student1.finished_courses += ['Введение в программирование']
+student1 = Student('Nikita', 'Radchenko', 'male')
+student1.courses_in_progress += ['Python', 'OOP']
+student1.finished_courses += ['Git']
 
-student2 = Student('Anna', 'Smith', 'female')
-student2.courses_in_progress += ['Python', 'Git']
-student2.finished_courses += ['Введение в программирование']
+student2 = Student('Olga', 'Eremina', 'female')
+student2.courses_in_progress += ['Python', 'OOP']
+student2.finished_courses += ['Git']
 
-lecturer1 = Lecturer('John', 'Doe')
-lecturer1.courses_attached += ['Python']
+lecturer1 = Lecturer('Pavel', 'Molibog')
+lecturer1.courses_attached += ['OOP']
 
-lecturer2 = Lecturer('Jane', 'Doe')
-lecturer2.courses_attached += ['Git']
+lecturer2 = Lecturer('Timur', 'Anvartdinov')
+lecturer2.courses_attached += ['Python']
 
-reviewer1 = Reviewer('Alice', 'Johnson')
+reviewer1 = Reviewer('Oleg', 'Bulygin')
 reviewer1.courses_attached += ['Python']
 
-reviewer2 = Reviewer('Bob', 'Brown')
-reviewer2.courses_attached += ['Git']
+reviewer2 = Reviewer('Elena', 'Nikitina')
+reviewer2.courses_attached += ['OOP']
 
-# Пример оценки лектора студентом
-student1.rate_lecturer(lecturer1, 'Python', 9)
-student1.rate_lecturer(lecturer2, 'Git', 8)
+# Оценки лектора студентом
+student1.rate_lecturer(lecturer1, 'OOP', 9)
+student1.rate_lecturer(lecturer2, 'Python', 8)
 
-student2.rate_lecturer(lecturer1, 'Python', 10)
-student2.rate_lecturer(lecturer2, 'Git', 7)
+student2.rate_lecturer(lecturer1, 'OOP', 10)
+student2.rate_lecturer(lecturer2, 'Python', 7)
 
-# Пример оценки домашнего задания студентом рецензентом
-reviewer1.rate_hw(student1, 'Python', 9)
-reviewer1.rate_hw(student2, 'Python', 8)
+# Оценки студента проверяющим
+reviewer1.rate_hw(student1, 'Python', 9,)
+reviewer1.rate_hw(student2, 'Python', 8,)
 
-# Вывод информации о студентах, лекторах и рецензентах
+# Вывод информации о студентах, лекторах и проверяющих
+print('Студенты:')
 print(student1)
 print(student2)
+print('Лекторы:')
 print(lecturer1)
 print(lecturer2)
+print('Проверяющие:')
 print(reviewer1)
 print(reviewer2)
 
-# Пример использования функций для подсчета средних оценок
+# Средние оценки
 print(f"Средняя оценка студентов по курсу Python: {average_student_grade([student1, student2], 'Python'):.1f}")
-print(f"Средняя оценка лекторов по курсу Python: {average_lecturer_grade([lecturer1, lecturer2], 'Python'):.1f}")
+print(f"Средняя оценка лекторов по курсу Python: {average_lecturer_grade([lecturer1, lecturer2], 'Python'):.1f}\n")
+
+# Лучшие студенты и лекторы
+if student1.average_grade() >= student2.average_grade():
+    print(f'Лучший студент - {student1.name} {student1.surname}')
+else:
+    print(f'Лучший студент - {student2.name} {student2.surname}')
+
+if lecturer1.average_grade() >= lecturer2.average_grade():
+    print(f'Лучший лектор - {lecturer1.name} {lecturer1.surname}')
+else:
+    print(f'Лучший лектор - {lecturer2.name} {lecturer2.surname}')
